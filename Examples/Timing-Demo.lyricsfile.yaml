@@ -1,0 +1,22 @@
+version: '1.0'
+metadata:
+  title: Authored timing demo
+  artist: Song Ambient
+  duration_ms: 8000
+lines:
+  - text: 'Yeh raat aur hum'
+    start_ms: 0
+    end_ms: 4000
+    words:
+      - {text: 'Yeh ', start_ms: 0, end_ms: 800}
+      - {text: 'raat ', start_ms: 1000, end_ms: 1800}
+      - {text: 'aur ', start_ms: 2000, end_ms: 2800}
+      - {text: hum, start_ms: 3000, end_ms: 4000}
+  - text: 'Music among the stars'
+    start_ms: 4000
+    end_ms: 8000
+    words:
+      - {text: 'Music ', start_ms: 4000, end_ms: 4800}
+      - {text: 'among ', start_ms: 5000, end_ms: 5800}
+      - {text: 'the ', start_ms: 6000, end_ms: 6800}
+      - {text: stars, start_ms: 7000, end_ms: 8000}

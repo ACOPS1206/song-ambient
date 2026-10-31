@@ -1,0 +1,25 @@
+# Build outputs and local tools
+.build/
+.swiftpm/
+dist/
+.DS_Store
+.tokenade/
+.codex/
+graphify-out/
+
+# Private reference/recovery work is never part of the open-source release.
+analysis/
+script/rea_client.mjs
+script/extract_shader_bitcode.py
+script/summarize_recovery.py
+
+# Local credentials, settings, media and archives
+.env
+.env.*
+!.env.example
+*.p12
+*.p8
+*.mobileprovision
+*.dmg
+*.zip
+*.xcuserstate
