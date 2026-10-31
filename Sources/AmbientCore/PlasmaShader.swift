@@ -32,14 +32,15 @@ public enum PlasmaShader{
             rgb=mix(deep,hot,tail);rgb=mix(rgb,float3(1),head*0.85f);
             a=tail*(1-smoothstep(width,width+max(2.0f,glow*0.32f),inside));
         }else if(style==3){
-            float swell=sin(s*37.6991f-time*1.8f-phase*6.2832f);
-            float ripple=sin(s*75.3982f+time*1.1f);
+            float wavePosition=atan2(p.y,p.x)/6.2831853f;
+            float swell=sin(wavePosition*37.6991f-time*1.8f-phase*6.2832f);
+            float ripple=sin(wavePosition*75.3982f+time*1.1f);
             float width=max(1.5f,thickness+5+(3+u.dynamics.y*7)*swell+high*3*ripple+bounce*10);
             float crest=exp(-pow((inside-width)/1.4f,2.0f));
             float body=(1-smoothstep(width-1,width+1,inside))*0.65f;
             a=max(body,crest);
             if(glow>0)a=max(a,0.22f*exp(-max(0.0f,inside-width)/max(1.0f,glow*0.22f)));
-            rgb=mix(deep,hot,0.5f+0.5f*sin(s*12.5664f-time*0.35f));
+            rgb=mix(deep,hot,0.5f+0.5f*sin(wavePosition*12.5664f-time*0.35f));
             rgb=mix(rgb,float3(1),crest*0.3f);
         }else if(style==4){
             int bar=min(63,int(fract(s)*64)),bin=bar%16;
