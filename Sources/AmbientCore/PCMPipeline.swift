@@ -19,7 +19,11 @@ package final class PCMPipeline: @unchecked Sendable {
     private var inputI = [Double](repeating: 0, count: 512)
     private var outputR = [Double](repeating: 0, count: 512)
     private var outputI = [Double](repeating: 0, count: 512)
-    private let window = (0..<512).map { 0.5 - 0.5 * cos(2 * .pi * Double($0) / 511.0) }
+    private let window: [Double] = (0..<512).map { index in
+        let phase: Double = 2.0 * Double.pi * Double(index) / 511.0
+        let cosine: Double = cos(phase)
+        return 0.5 - 0.5 * cosine
+    }
 
     package init(sampleRate: Double, frameCount: Int, publish: @escaping @Sendable (AudioFeatures) -> Void) {
         self.sampleRate = sampleRate

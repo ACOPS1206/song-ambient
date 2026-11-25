@@ -152,8 +152,12 @@ let received = recorded.withLock { $0.first! }
 var baselineEngine = BeatEngine()
 var baseline = baselineEngine.analyze(referenceMono, sampleRate: sampleRate, time: 1)
 // Reproduce the original Hann window and logarithmic bins with an independent DFT.
-let windowed = (0..<512).map { index in
-    Double(referenceMono[index]) * (0.5 - 0.5 * cos(2 * .pi * Double(index) / 511))
+let windowed: [Double] = (0..<512).map { index in
+    let sample = Double(referenceMono[index])
+    let phase: Double = 2.0 * Double.pi * Double(index) / 511.0
+    let cosine: Double = cos(phase)
+    let weight: Double = 0.5 - 0.5 * cosine
+    return sample * weight
 }
 for band in 0..<16 {
     let lo = max(1, Int(pow(256.0, Double(band) / 16)))
