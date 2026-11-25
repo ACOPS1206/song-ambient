@@ -72,10 +72,10 @@ struct PlayerCard: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(music.title).font(.system(size: compact ? 14 : 16, weight: .semibold)).lineLimit(1)
                     Text(music.artist).font(.system(size: 12)).foregroundStyle(.secondary).lineLimit(1)
-                    if !compact { Text("Spotify").font(.system(size: 10, weight: .medium)).foregroundStyle(.tertiary) }
+                    if !compact { Text(model.audioSource.rawValue).font(.system(size: 10, weight: .medium)).foregroundStyle(.tertiary) }
                 }
                 Spacer(minLength: 0)
-                BarsView(audio: audio, playing: music.playing).frame(width: 26, height: 22)
+                BarsView(audio: audio, playing: model.audioSource == .spotify ? music.playing : model.lightingActive).frame(width: 26, height: 22)
             }
             if expandedArtwork {
                 cover.frame(height: 240).clipShape(RoundedRectangle(cornerRadius: 16))
