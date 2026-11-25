@@ -88,7 +88,13 @@ import AmbientCore
             }
             return
         }
-        guard !denied else { return }
+        guard !denied else {
+            if status != automationDeniedMessage {
+                status = automationDeniedMessage
+                diagnostics = [status]
+            }
+            return
+        }
         polling = true
         let generation = self.generation
         let pid = app.processIdentifier
@@ -111,11 +117,15 @@ import AmbientCore
                     if player == .appleMusic { self.clearTrack() }
                     self.denied = code == -1743
                     self.connected = false; self.playing = false
-                    self.status = self.denied ? "Automation permission denied. Allow \(player.rawValue) in Privacy & Security → Automation, then Connect." : "\(message) (\(code))"
+                    self.status = self.denied ? self.automationDeniedMessage : "\(message) (\(code))"
                     self.diagnostics = ["\(player.rawValue): \(self.status)"]
                 }
             }
         }
+    }
+
+    private var automationDeniedMessage: String {
+        "Automation permission denied. Allow \(selected.rawValue) in Privacy & Security → Automation, then Connect."
     }
 
     private func clearTrack(keepingControlsFor player: AudioSource? = nil) {

@@ -135,7 +135,7 @@ print("Passed source persistence, process isolation, and lighting gate checks.")
 
 let sampleRate = 48_000.0
 let referenceMono = tone(1250, 0.2, 0)
-let interleaved = referenceMono.enumerated().flatMap { index, value in
+let interleaved = referenceMono.enumerated().flatMap { index, value -> [Float] in
     index.isMultiple(of: 2) ? [value, -value] : [0, value]
 }
 let recorded = Mutex<[AudioFeatures]>([])
